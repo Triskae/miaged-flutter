@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "94077226175",
+    "project_id": "miaged-9fef5",
+    "storage_bucket": "miaged-9fef5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:94077226175:android:6be9e85854a4c6b1f6ca0a",
+        "android_client_info": {
+          "package_name": "com.filipedoutelsilva.Miaged"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "94077226175-el00g0g8gjujg35os9cai230o3itto0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.filipedoutelsilva.Miaged",
+            "certificate_hash": "fd62a193d9a04405f632f9a34d774442df76a723"
+          }
+        },
+        {
+          "client_id": "94077226175-ps84jk8rh932b1sq2b4aje032o54ss4q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJnDOxmK9Y001yXW8lpFiC85fBLOhkikI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "94077226175-ps84jk8rh932b1sq2b4aje032o54ss4q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
