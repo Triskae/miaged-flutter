@@ -5,8 +5,8 @@ import 'auth/login-screen.dart';
 import 'auth/register-screen.dart';
 
 final routes = {
-  '/': (context) => new Feed(),
+  '/': (context) => new Splashscreen(),
   '/login': (context) => new LoginScreen(),
   '/register': (context) => new RegisterScreen(),
-  '/splashscreen': (context) => new Splashscreen(),
+  '/feed': (context) => new Feed(),
 };

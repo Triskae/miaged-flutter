@@ -25,7 +25,10 @@ class LoginFormState extends State<LoginForm> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(bottom: 20),
-              child: Icon(Icons.shopping_cart, size: 60,),
+              child: Icon(
+                Icons.shopping_cart,
+                size: 60,
+              ),
             ),
             Padding(
               padding: EdgeInsets.only(bottom: 20),
@@ -61,7 +64,16 @@ class LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                   onPressed: handleConnectButton, child: Text("Se connecter")),
             ),
-            InkWell(child: Text("S'enregistrer"),)
+            Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: GestureDetector(
+                    child: Text("Créer un compte",
+                        style: TextStyle(
+                            decoration: TextDecoration.underline,
+                            color: Colors.blue)),
+                    onTap: () {
+                      Navigator.pushNamed(context, '/register');
+                    }))
           ],
         ));
   }
@@ -71,7 +83,9 @@ class LoginFormState extends State<LoginForm> {
       _formKey.currentState.save();
       LoginRegisterResponse response =
           await _authService.tryConnection(_email, _password);
-      if (response.isAllowdToEnterApp) {
+      if (response.isAllowedToEnterApp) {
+        Scaffold.of(context)
+            .showSnackBar(SnackBar(content: Text(response.userUID)));
       } else {
         if (response.message.isNotEmpty) {
           Scaffold.of(context)

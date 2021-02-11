@@ -1,11 +1,16 @@
+import 'package:Miaged/services/abastraction/auth-service-abstraction.dart';
 import 'package:flutter/material.dart';
 
+import '../service-locator.dart';
+
 class Splashscreen extends StatelessWidget {
+  AuthServiceAbstraction _authService = locator<AuthServiceAbstraction>();
   @override
   Widget build(BuildContext context) {
-    checkIfAuthenticated().then((success) {
-      if (success) {
-        Navigator.pushReplacementNamed(context, '/');
+
+    _authService.checkIfAuthenticated().then((response) {
+      if (response.isAllowedToEnterApp) {
+        Navigator.pushReplacementNamed(context, '/feed');
       } else {
         Navigator.pushReplacementNamed(context, '/login');
       }
@@ -14,10 +19,5 @@ class Splashscreen extends StatelessWidget {
     return Center(
       child: CircularProgressIndicator(),
     );
-  }
-
-  checkIfAuthenticated() async {
-    await Future.delayed(Duration(seconds: 5));  // could be a long running task, like a fetch from keychain
-    return false;
   }
 }

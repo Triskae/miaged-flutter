@@ -1,3 +1,4 @@
+import 'package:Miaged/auth/forms/register-form.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -6,12 +7,16 @@ class RegisterScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(80.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text('RegisterScreen')
-            ],
+          padding: EdgeInsets.all(20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [RegisterForm()])
+              ],
+            ),
           ),
         ),
       ),
