@@ -7,17 +7,16 @@ class LoginScreen extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(80.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-             Form(child: Column(
-                 mainAxisAlignment: MainAxisAlignment.center,
-                 children: [
-                   LoginForm()
-                 ]
-             ))
-            ],
+          padding: EdgeInsets.all(20),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [LoginForm()])
+              ],
+            ),
           ),
         ),
       ),

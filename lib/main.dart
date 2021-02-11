@@ -3,9 +3,11 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'common/loading.dart';
 import 'routing.dart';
+import 'service-locator.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  setupServiceLocator();
   runApp(MyApp());
 }
 
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-              initialRoute: '/login',
+              initialRoute: '/splashscreen',
               routes: routes
           );
         }
