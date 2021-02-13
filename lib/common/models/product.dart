@@ -1,7 +1,7 @@
 class Product {
   final int id;
   final String title;
-  final String price;
+  final dynamic price;
   final String category;
   final String description;
   final String image;
@@ -14,7 +14,7 @@ class Product {
       this.description,
       this.image});
 
-  factory Product.fromJson(Map<String, dynamic> json) {
+  factory Product.fromJson(dynamic json) {
     return Product(
         id: json['id'],
         title: json['title'],
@@ -22,5 +22,10 @@ class Product {
         category: json['category'],
         description: json['description'],
         image: json['image']);
+  }
+
+  @override
+  String toString() {
+    return 'Product{id: $id, title: $title, price: $price, category: $category, description: $description, image: $image}';
   }
 }

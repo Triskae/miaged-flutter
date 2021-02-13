@@ -1,6 +1,6 @@
 import 'package:Miaged/auth/splashscreen.dart';
 
-import 'feed.dart';
+import 'feed/feed.dart';
 import 'auth/login-screen.dart';
 import 'auth/register-screen.dart';
 

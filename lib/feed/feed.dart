@@ -1,3 +1,5 @@
+import 'package:Miaged/common/models/product.dart';
+import 'package:Miaged/feed/feed-list.dart';
 import 'package:flutter/material.dart';
 
 class Feed extends StatelessWidget {
@@ -25,15 +27,7 @@ class Feed extends StatelessWidget {
       ),
       body: Center(
         child: Container(
-          child: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 2,
-            ),
-            itemBuilder: (context, index) {
-              return Text('coucou');
-            },
-          ),
+          child: FeedList()
         ),
       ),
     );
