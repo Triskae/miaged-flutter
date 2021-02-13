@@ -14,13 +14,20 @@ class AuthService extends AuthServiceAbstraction {
     try {
       final String storedUid = prefs.getString(UID);
       final String storedEmail = prefs.getString(EMAIL);
-      if(storedUid.isNotEmpty) {
-        return new LoginRegisterResponse(false, null, storedUid, storedEmail);
+      print(storedEmail);
+      print(storedUid);
+      if(storedUid != null) {
+        // Logged in
+        return new LoginRegisterResponse(true, null, storedUid, storedEmail);
+      } else {
+        // Not logged in
+        return new LoginRegisterResponse(false, null, null, null);
       }
     } catch (e) {
-      print(e.code);
+      // Error
       return new LoginRegisterResponse(false, null, null, null);
     }
+    print('should not be here');
     return null;
   }
 

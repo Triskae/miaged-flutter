@@ -84,8 +84,8 @@ class LoginFormState extends State<LoginForm> {
       LoginRegisterResponse response =
           await _authService.tryConnection(_email, _password);
       if (response.isAllowedToEnterApp) {
-        Scaffold.of(context)
-            .showSnackBar(SnackBar(content: Text(response.userUID)));
+       _authService.persistConnection(response.userUID, response.email);
+       Navigator.pushReplacementNamed(context, '/feed');
       } else {
         if (response.message.isNotEmpty) {
           Scaffold.of(context)

@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           return ErrorScreen();
         }
 
-        // Once complete, show your application
+        // Fully loaded
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
               initialRoute: '/',
@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           );
         }
 
-        // Otherwise, show something whilst waiting for initialization to complete
+        // Meanwhile loading
         return Loading();
       },
     );
