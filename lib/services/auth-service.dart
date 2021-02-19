@@ -27,8 +27,6 @@ class AuthService extends AuthServiceAbstraction {
       // Error
       return new LoginRegisterResponse(false, null, null, null);
     }
-    print('should not be here');
-    return null;
   }
 
   @override

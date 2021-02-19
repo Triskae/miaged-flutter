@@ -29,6 +29,7 @@ dependencies:
   shared_preferences: ^0.5.1+2
   get_it: ^5.0.4
   http: ^0.12.2
+  cloud_firestore: "^0.16.0"
 
 
 
