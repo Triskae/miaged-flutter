@@ -3,6 +3,8 @@ import 'package:Miaged/service-locator.dart';
 import 'package:Miaged/services/abastraction/feed-service-abstraction.dart';
 import 'package:flutter/material.dart';
 
+import 'feed-tile.dart';
+
 class FeedList extends StatefulWidget {
   FeedList({Key key}) : super(key: key);
 
@@ -34,13 +36,13 @@ class _FeedListState extends State<FeedList> {
                 childAspectRatio: 2,
               ),
               itemBuilder: (context, index) {
-                return Text(snapshot.data[index].title);
+                return FeedTile(product: snapshot.data[index]);
               },
             );
           } else if (snapshot.hasError) {
             return Text("Error");
           }
-          return CircularProgressIndicator();
+          return Center(child: CircularProgressIndicator(),);
         },
       )
     );

@@ -1,3 +1,4 @@
+import 'package:Miaged/app-frame.dart';
 import 'package:Miaged/auth/splashscreen.dart';
 
 import 'feed/feed.dart';
@@ -8,5 +9,5 @@ final routes = {
   '/': (context) => new Splashscreen(),
   '/login': (context) => new LoginScreen(),
   '/register': (context) => new RegisterScreen(),
-  '/feed': (context) => new Feed(),
+  '/feed': (context) => new MainFrame(),
 };
