@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:Miaged/common/models/product.dart';
 
 class Cart {
@@ -13,5 +15,20 @@ class Cart {
   @override
   String toString() {
     return 'Cart{userId: $userId, products: $cart}';
+  }
+
+  Map toJson() {
+    List<Map> cart = this.cart != null ? this.cart.map((e) => e.toJson()).toList() : null;
+    return {
+      'userId': this.userId,
+      "cart": cart
+    };
+  }
+
+  Map toMap() {
+    return {
+      'userId': this.userId,
+      'cart': jsonEncode(this.cart)
+    };
   }
 }
