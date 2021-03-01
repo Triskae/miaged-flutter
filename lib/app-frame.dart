@@ -1,4 +1,4 @@
-import 'package:Miaged/basket/basket.dart';
+import 'package:Miaged/basket/cart-screen.dart';
 import 'package:Miaged/feed/feed.dart';
 import 'package:Miaged/profil/profil.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class _MainFrameState extends State<MainFrame> {
   int selectedIndex = 0;
   List<Widget> _widgetList = <Widget>[
     Feed(),
-    Basket(),
+    CartScreen(),
     Profil()
   ];
 

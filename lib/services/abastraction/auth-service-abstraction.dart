@@ -7,4 +7,5 @@ abstract class AuthServiceAbstraction {
   Future<void> persistConnection(String uid, String email);
   String emailCheck(String emailToCheck);
   String passwordCheck(String passwordToCheck);
+  Future<void> signOut();
 }

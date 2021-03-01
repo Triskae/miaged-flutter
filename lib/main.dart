@@ -1,6 +1,7 @@
 import 'package:Miaged/common/error.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'common/loading.dart';
 import 'routing.dart';
 import 'service-locator.dart';
@@ -13,6 +14,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -28,8 +30,9 @@ class MyApp extends StatelessWidget {
         // Fully loaded
         if (snapshot.connectionState == ConnectionState.done) {
           return MaterialApp(
-              initialRoute: '/',
-              routes: routes
+            initialRoute: '/',
+            routes: routes,
+            theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)),
           );
         }
 

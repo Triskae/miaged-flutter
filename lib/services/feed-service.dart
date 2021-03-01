@@ -13,11 +13,17 @@ class FeedService extends FeedServiceAbstraction {
   String storedUid;
 
   @override
-  Future<List<Product>> getAllProducts() async {
+  Future<List<Product>> getAllProducts([String category]) async {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
       CollectionReference carts = firestore.collection(PRODUCTS);
-      QuerySnapshot products = await carts.get();
+      QuerySnapshot products;
+      print(category);
+      if (category != null) {
+        products = await carts.where('category', isEqualTo: category).get();
+      } else {
+        products = await carts.get();
+      }
 
       if (products.docs.length != 0) {
         List<Product> result = products.docs.map((e) => Product.fromJson(e.data())).toList();
@@ -27,18 +33,6 @@ class FeedService extends FeedServiceAbstraction {
       throw Exception("Failed to load products");
     }
     return null;
-  }
-
-  @override
-  Future<List<Product>> getAllProductsByCategory(String category) async {
-    final response = await http.get(
-        'https://fakestoreapi.com/products/category/${Uri.encodeFull(category)}');
-    if (response.statusCode == 200) {
-      var rawProducts = json.decode(response.body) as List;
-      return rawProducts.map((product) => Product.fromJson(product)).toList();
-    } else {
-      throw Exception("Failed to load products");
-    }
   }
 
   @override

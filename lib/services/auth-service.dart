@@ -4,7 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService extends AuthServiceAbstraction {
-
   final String UID = "UID";
   final String EMAIL = "EMAIL";
 
@@ -16,7 +15,7 @@ class AuthService extends AuthServiceAbstraction {
       final String storedEmail = prefs.getString(EMAIL);
       print(storedEmail);
       print(storedUid);
-      if(storedUid != null) {
+      if (storedUid != null) {
         // Logged in
         return new LoginRegisterResponse(true, null, storedUid, storedEmail);
       } else {
@@ -38,40 +37,41 @@ class AuthService extends AuthServiceAbstraction {
   }
 
   @override
-  Future<LoginRegisterResponse> registrateUser(String email, String password) async {
-   try {
-     print("registrate");
-     UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-     print("done");
-     return new LoginRegisterResponse(false, 'Veuillez maintenant vous connecter', null, null);
-   } on FirebaseAuthException catch (e) {
-     print(e.code);
-   }
-   return null;
+  Future<LoginRegisterResponse> registrateUser(
+      String email, String password) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+      print("done");
+      return new LoginRegisterResponse(
+          false, 'Veuillez maintenant vous connecter', null, null);
+    } on FirebaseAuthException catch (e) {
+      print(e.code);
+    }
+    return null;
   }
 
   @override
-  Future<LoginRegisterResponse> tryConnection(String email, String password) async {
+  Future<LoginRegisterResponse> tryConnection(
+      String email, String password) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(
-          email: email,
-          password: password);
+          .signInWithEmailAndPassword(email: email, password: password);
 
       persistConnection(userCredential.user.uid, userCredential.user.email);
-      return new LoginRegisterResponse(true, "", userCredential.user.uid, userCredential.user.email);
-
+      return new LoginRegisterResponse(
+          true, "", userCredential.user.uid, userCredential.user.email);
     } catch (e) {
       if (e.code == 'user-not-found') {
         return new LoginRegisterResponse(false, 'Email inconnu.', null, null);
       } else if (e.code == 'wrong-password') {
-        return new LoginRegisterResponse(false, 'Le mot de passe est erroné.', null, null);
+        return new LoginRegisterResponse(
+            false, 'Le mot de passe est erroné.', null, null);
       } else {
         print(e.toString());
       }
       return null;
     }
-
   }
 
   @override
@@ -96,4 +96,9 @@ class AuthService extends AuthServiceAbstraction {
     return null;
   }
 
+  @override
+  Future<void> signOut() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
 }

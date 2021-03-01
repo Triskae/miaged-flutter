@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'feed-tile.dart';
 
 class FeedList extends StatefulWidget {
-  FeedList({Key key}) : super(key: key);
+  FeedList({Key key, this.category}) : super(key: key);
+  final String category;
 
   @override
   _FeedListState createState() => _FeedListState();
@@ -19,7 +20,11 @@ class _FeedListState extends State<FeedList> {
   @override
   void initState() {
     super.initState();
-    products = _feedService.getAllProducts();
+    if (this.widget.category != null) {
+      products = _feedService.getAllProducts(this.widget.category);
+    } else {
+      products = _feedService.getAllProducts();
+    }
   }
 
   @override

@@ -16,53 +16,86 @@ class CartService extends CartServiceAbstraction {
   String storedUid;
 
   @override
-  Future<Cart> getUserCart() async {
+  Future<List<Product>> getUserCartContent() async {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     final User user = FirebaseAuth.instance.currentUser;
     try {
       storedUid = user.uid;
       CollectionReference carts = firestore.collection(CARTS);
-      carts
-          .where('userId', isEqualTo: storedUid)
-          .get()
-          .then((QuerySnapshot value) => print(value.docs[0].data()['userId']))
-          .catchError(
-              (error) => print("Failed to get cart for this reason: $error"));
+      QuerySnapshot value =
+          await carts.where('userId', isEqualTo: storedUid).get();
+      if (value.docs.length != 0) {
+        var rawCart = jsonDecode(value.docs[0].data()['cart']);
+        List<Product> products = new List();
+        rawCart.forEach((p) => {products.add(Product.fromJson(p))});
+        return products;
+      }
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Future<Cart> addProductToCart(Product product) async {
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
+    final User user = FirebaseAuth.instance.currentUser;
+    try {
+      storedUid = user.uid;
+      CollectionReference carts = firestore.collection(CARTS);
+      QuerySnapshot value =
+          await carts.where('userId', isEqualTo: storedUid).get();
+      if (value.docs.length != 0) {
+        String ref = value.docs[0].id;
+        String userId = value.docs[0].data()['userId'];
+        var rawCart = jsonDecode(value.docs[0].data()['cart']);
+
+        dynamic products = rawCart.map((e) => Product.fromJson(e)).toList();
+        if (products.every((p) => p.id != product.id)) {
+          products.add(product);
+          carts.doc(ref).update({'cart': jsonEncode(products)});
+          return Cart(
+              userId: storedUid,
+              cart: products,
+              message: "Ajouté au panier avec succès !");
+        }
+        return Cart(
+            userId: storedUid,
+            cart: products,
+            message: "Ce produit a déjà été ajouté au panier !");
+      }
     } catch (e) {
       return Cart(userId: storedUid, cart: null);
     }
   }
 
   @override
-  Future<void> addProductToCart(Product product) async {
+  Future<Cart> removeProductFromCart(Product product) async {
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     final User user = FirebaseAuth.instance.currentUser;
     try {
       storedUid = user.uid;
       CollectionReference carts = firestore.collection(CARTS);
-      QuerySnapshot value = await carts.where('userId', isEqualTo: storedUid).get();
-      if(value.docs.length != 0) {
-        // Update an existing
-        print('update');
+      QuerySnapshot value =
+          await carts.where('userId', isEqualTo: storedUid).get();
+      if (value.docs.length != 0) {
         String ref = value.docs[0].id;
         String userId = value.docs[0].data()['userId'];
         var rawCart = jsonDecode(value.docs[0].data()['cart']);
 
         dynamic products = rawCart.map((e) => Product.fromJson(e)).toList();
-        products.add(product);
 
-        carts.doc(ref)
-        .update({
-          'cart': jsonEncode(products)
+        int elemToRemove = products.indexWhere((p) {
+          return p.id == product.id;
         });
-      } else {
-        // Add a cart
-        print('add');
-        Cart cart = new Cart(userId: storedUid, cart: new List());
-        cart.cart.add(product);
-        carts.add(cart.toMap());
+        print("avant");
+        print(products.length);
+        products.removeAt(elemToRemove);
+        print("après");
+        print(products.length);
+        carts.doc(ref).update({'cart': jsonEncode(products)});
       }
     } catch (e) {
+      print(e);
       return Cart(userId: storedUid, cart: null);
     }
   }

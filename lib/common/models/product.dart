@@ -7,6 +7,7 @@ class Product {
   final String image;
   final int rating;
   final String size;
+  final String brand;
 
   Product({
     this.id,
@@ -17,6 +18,7 @@ class Product {
     this.image,
     this.rating,
     this.size,
+    this.brand
   });
 
   factory Product.fromJson(dynamic json) {
@@ -28,7 +30,8 @@ class Product {
         description: json['description'],
         image: json['image'],
         rating: json['rating'],
-        size: json['size']);
+        size: json['size'],
+        brand: json['brand']);
   }
 
   Map<String, dynamic> toJson() {
@@ -41,11 +44,12 @@ class Product {
       "image": this.image,
       "rating": this.rating,
       "size": this.size,
+      "brand": this.brand,
     };
   }
 
   @override
   String toString() {
-    return 'Product{id: $id, title: $title, price: $price, category: $category, description: $description, image: $image, rating: $rating, size: $size}';
+    return 'Product{id: $id, title: $title, price: $price, category: $category, description: $description, image: $image, rating: $rating, size: $size, brand: $brand}';
   }
 }
